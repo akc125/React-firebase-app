@@ -1,24 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import About from "./Pages/About";
+import Home from "./Pages/Home";
+import Login from "./Pages/Login";
+import Header from "./components/Header";
+import {
+  Routes,
+  Route,
+  BrowserRouter as Router,
+} from "react-router-dom";
 
 function App() {
+  const hasToken = localStorage.getItem("userToken");
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <Header></Header>
+        <main className="banner">
+          <section className="inner">
+            <Routes>
+              <Route path="/" element={<Login></Login>} />
+              {hasToken && (
+                <>
+                  <Route path="/home" element={<Home></Home>} />
+                  <Route path="/about" element={<About></About>} />
+                </>
+              )}
+            </Routes>
+          </section>
+        </main>
+      </div>
+    </Router>
   );
 }
 

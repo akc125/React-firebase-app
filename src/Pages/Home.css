@@ -1,0 +1,97 @@
+.home {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(92, 85, 85,0.5);
+}
+.image {
+  width: 100%;
+  padding-top: 50px;
+  height: 100%;
+  background-color: blue;
+  background-repeat: no-repeat;
+  object-fit: cover;
+ background-size: contain;
+ background-size: cover;
+ background-position: center;
+ background-repeat: no-repeat;
+ float: left;
+ overflow: scroll;
+ background: linear-gradient(rgb(50, 47, 47,0.4), rgb(16, 16, 16,02)), url("https://imageio.forbes.com/specials-images/imageserve/61cdd9ec2bbdedb659077751/Neutral-living-color-corrected/960x0.jpg?format=jpg&width=960")}
+table{
+  position: relative;
+  left: 130px;
+  width: 700px;
+  text-align: center;
+  top: 100px;
+}
+.image::-webkit-scrollbar{
+  display: none;
+}
+.tableName{
+  position: relative;
+  left: 330px;
+  color: aliceblue;
+
+}
+th{
+  background-color: rgb(9, 13, 32);
+  height: 50px;
+  color: aliceblue;
+}
+td{
+  background-color: rgb(55, 63, 70,0.5);
+  height: 50px;
+}
+.formDiv{
+  position: absolute;
+  top: 20px;
+  left: 130px;
+  top: 120px;
+
+}
+.formDiv  input{
+  background-color: rgb(29, 28, 28,0.5);
+  height: 30px;
+  color: rgb(215, 198, 198);
+  padding-left: 3px;
+  font-size: 18px;
+  height: 40px;
+  width: 234px;
+  border: 3px solid white;
+}
+.formDiv2 input{
+  background-color: rgb(29, 28, 28,0.5);
+  height: 30px;
+  color: rgb(215, 198, 198);
+  padding-left: 3px;
+  font-size: 18px;
+  height: 40px;
+  width: 234px;
+  border: 3px solid white;
+}
+.formDiv button{
+  width: 190px;
+  height: 30px;
+  margin-left: 25px;
+  background-color: rgb(23, 136, 111);
+  position: relative;
+  top: 5px;
+  color: white;
+  position: relative;
+  left: 20px;
+}
+.formDiv2{
+  position: absolute;
+  left: 130px;
+  top: 120px;
+}
+.formDiv2 button{
+  width: 190px;
+  height: 30px;
+  margin-left: 25px;
+  background-color: rgb(255, 0, 0);
+  position: relative;
+  top: 5px;
+  color: white;
+  left: 20px;
+}
