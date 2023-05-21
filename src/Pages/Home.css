@@ -6,6 +6,7 @@
 .tableDiv {
   width: 100%;
   padding-top: 50px;
+  padding-left: 50px;
   height: 100%;
   background-color: blue;
   background-repeat: no-repeat;
@@ -16,8 +17,8 @@
   background-repeat: no-repeat;
   float: left;
   overflow: scroll;
-  background: linear-gradient(rgb(0, 0, 0), rgba(0, 0, 0, 0.8)),
-    url("https://imageio.forbes.com/specials-images/imageserve/61cdd9ec2bbdedb659077751/Neutral-living-color-corrected/960x0.jpg?format=jpg&width=960");
+  background: linear-gradient(rgb(0, 0, 0,0.8), rgba(0, 0, 0)),
+    url("../../public/home.webp");
 }
 table {
   position: relative;
@@ -49,7 +50,7 @@ td {
 .formDiv {
   position: absolute;
   top: 20px;
-  left: 130px;
+  left: 180px;
   top: 120px;
 }
 .formDiv input {
@@ -85,7 +86,7 @@ td {
 }
 .formDiv2 {
   position: absolute;
-  left: 130px;
+  left: 180px;
   top: 120px;
 }
 .formDiv2 button {

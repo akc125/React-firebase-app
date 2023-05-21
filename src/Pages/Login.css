@@ -1,10 +1,10 @@
 .loginScreen {
   width: 1420px;
   top: -110px;
-  height: 670px;
+  height: 750px;
   left: -160px;
-  background: linear-gradient(rgb(24, 23, 23, 0.6), rgb(35, 42, 35, 0.7)),
-    url("../../public/HD-wallpaper-new-york-city-wide-8k-new-york-world-city-buildings-graphy.jpg");
+  background: linear-gradient(rgb(24, 23, 23, 0.5), rgb(35, 42, 35, 0.6)),
+    url("../../public/4K-City-Wallpaper-HD-Free-download.jpg");
   position: absolute;
   background-position: center;
   background-repeat: no-repeat;
