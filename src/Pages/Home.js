@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import {  useLocation } from "react-router-dom";
 import "./Home.css";
 import {
   collection,
@@ -10,8 +11,6 @@ import {
   updateDoc,
   getDoc,
 } from "firebase/firestore";
-import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 function Home() {
@@ -27,6 +26,8 @@ function Home() {
   });
 
   const [open, setOpen] = useState();
+  const [shouldRefreshs, setShouldRefresh] = useState();
+
   const [newStudent, setNewStudent] = useState({
     name: "",
     age: "",
@@ -35,19 +36,7 @@ function Home() {
     email: "",
   });
   const navigate = useNavigate();
-  const firebaseConfig = {
-    apiKey: "AIzaSyBsuyALkiFj2sf48hvBa0T2pABRGYw9QwA",
-    authDomain: "porto-bc83c.firebaseapp.com",
-    projectId: "porto-bc83c",
-    storageBucket: "porto-bc83c.appspot.com",
-    messagingSenderId: "840938555551",
-    appId: "1:840938555551:web:6492d6500cdc4d93affaaa",
-    measurementId: "G-HZC66R9KMZ",
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-
+ 
   useEffect(() => {
     setUpdatedStudentData({
       name: singleStudentData.name,
@@ -57,6 +46,16 @@ function Home() {
       email: singleStudentData.email,
     });
   }, [singleStudentData]);
+
+  const location = useLocation();
+  const pathname = location.pathname;
+  console.log('pathname',pathname)
+  useEffect(() => {
+  if (pathname === "/home") { // Adjust the condition based on your authentication logic
+    fetchData();
+    setShouldRefresh(true);
+  }
+}, [pathname]);
 
   // Get
 
@@ -77,7 +76,7 @@ function Home() {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [shouldRefreshs]);
 
   // Get single data
   const fetchSingleData = async (studentId) => {

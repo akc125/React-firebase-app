@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./Register.css";
-import { useNavigate } from "react-router-dom";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 

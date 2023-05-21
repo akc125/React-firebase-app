@@ -1,23 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./Details.css";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
-import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
 import { useParams } from "react-router-dom";
+
 function Detail() {
   const [students, setStudents] = useState();
-  const firebaseConfig = {
-    apiKey: "AIzaSyBsuyALkiFj2sf48hvBa0T2pABRGYw9QwA",
-    authDomain: "porto-bc83c.firebaseapp.com",
-    projectId: "porto-bc83c",
-    storageBucket: "porto-bc83c.appspot.com",
-    messagingSenderId: "840938555551",
-    appId: "1:840938555551:web:6492d6500cdc4d93affaaa",
-    measurementId: "G-HZC66R9KMZ",
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
   const { studentId } = useParams();
 
   // Get single data
@@ -47,7 +34,7 @@ function Detail() {
     <div className="mainDiv">
       <h1 style={{ color: "white" }}>
         <span className="details">Name </span>
-        <span style={{color:"white"}}>{students?.name}</span>
+        <span style={{ color: "white" }}>{students?.name}</span>
       </h1>
       <h2>
         <span className="details">Age </span>
