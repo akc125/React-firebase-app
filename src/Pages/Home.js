@@ -12,18 +12,21 @@ import {
 } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
   const [students, setStudents] = useState([]);
   const [studentId, setstudentId] = useState([]);
-  const [open, setOpen] = useState();
-  const [studentsUpdate, setStudentsUpdate] = useState({
-    name: "",
-    age: "",
-    place: "",
-    mobile: "",
-    email: "",
+  const [singleStudentData, setsingleStudentData] = useState([]);
+  const [updatedStudentData, setUpdatedStudentData] = useState({
+    name: singleStudentData.name,
+    age: singleStudentData.age,
+    place: singleStudentData.place,
+    mobile: singleStudentData.mobile,
+    email: singleStudentData.email,
   });
+
+  const [open, setOpen] = useState();
   const [newStudent, setNewStudent] = useState({
     name: "",
     age: "",
@@ -31,7 +34,7 @@ function Home() {
     mobile: "",
     email: "",
   });
-
+  const navigate = useNavigate();
   const firebaseConfig = {
     apiKey: "AIzaSyBsuyALkiFj2sf48hvBa0T2pABRGYw9QwA",
     authDomain: "porto-bc83c.firebaseapp.com",
@@ -44,6 +47,17 @@ function Home() {
 
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
+
+  useEffect(() => {
+    setUpdatedStudentData({
+      name: singleStudentData.name,
+      age: singleStudentData.age,
+      place: singleStudentData.place,
+      mobile: singleStudentData.mobile,
+      email: singleStudentData.email,
+    });
+  }, [singleStudentData]);
+
   // Get
 
   const fetchData = async () => {
@@ -76,7 +90,7 @@ function Home() {
           id: studentSnapshot.id,
           ...studentSnapshot.data(),
         };
-        setStudents([studentData]);
+        setsingleStudentData(studentData);
         console.log(studentData);
       } else {
         console.log("No student found with ID:", studentId);
@@ -85,6 +99,9 @@ function Home() {
       console.log(error);
     }
   };
+  useEffect(() => {
+    fetchSingleData(studentId);
+  }, []);
 
   // Add
   const addStudent = async (e) => {
@@ -93,7 +110,7 @@ function Home() {
       try {
         const firestore = getFirestore();
         await addDoc(collection(firestore, "students"), newStudent);
-        console.log("hop", newStudent);
+
         fetchData();
       } catch (error) {
         console.log(error);
@@ -122,14 +139,14 @@ function Home() {
   };
 
   const handleMobileChange = (e) => {
-    setStudentsUpdate((prevStudent) => ({
+    setNewStudent((prevStudent) => ({
       ...prevStudent,
       mobile: e.target.value,
     }));
   };
 
   const handleEmailChange = (e) => {
-    setStudentsUpdate((prevStudent) => ({
+    setNewStudent((prevStudent) => ({
       ...prevStudent,
       email: e.target.value,
     }));
@@ -155,7 +172,7 @@ function Home() {
     try {
       const firestore = getFirestore();
       const studentRef = doc(firestore, "students", studentId);
-      await updateDoc(studentRef, studentsUpdate);
+      await updateDoc(studentRef, updatedStudentData);
       fetchData();
     } catch (error) {
       console.log(error);
@@ -163,42 +180,46 @@ function Home() {
   };
 
   const handleNameUpdate = (e) => {
-    setStudentsUpdate((prevStudent) => ({
+    setUpdatedStudentData((prevStudent) => ({
       ...prevStudent,
       name: e.target.value,
     }));
   };
 
   const handleAgeUpdate = (e) => {
-    setStudentsUpdate((prevStudent) => ({
+    setUpdatedStudentData((prevStudent) => ({
       ...prevStudent,
       age: e.target.value,
     }));
   };
 
   const handlePlaceUpdate = (e) => {
-    setStudentsUpdate((prevStudent) => ({
+    setUpdatedStudentData((prevStudent) => ({
       ...prevStudent,
       place: e.target.value,
     }));
   };
 
   const handleMobileUpdate = (e) => {
-    setStudentsUpdate((prevStudent) => ({
+    setUpdatedStudentData((prevStudent) => ({
       ...prevStudent,
       mobile: e.target.value,
     }));
   };
 
   const handleEmailUpdate = (e) => {
-    setStudentsUpdate((prevStudent) => ({
+    setUpdatedStudentData((prevStudent) => ({
       ...prevStudent,
       email: e.target.value,
     }));
   };
+
+  function routToDetails(studentId) {
+    navigate(`/details/${studentId}`);
+  }
   return (
     <div className="home">
-      <section className="image">
+      <section className="tableDiv">
         <h1 className="tableName">Students Table</h1>
         <div className="formDiv">
           {!open && (
@@ -230,22 +251,34 @@ function Home() {
                   <td>
                     <button
                       onClick={() => deleteStudent(student.id)}
-                      style={{ marginRight: "25px" }}
+                      style={{
+                        marginRight: "25px",
+                        backgroundColor: "red",
+                        color: "white",
+                      }}
                     >
                       Delete
                     </button>
                     <i
                       onClick={() => {
                         setOpen(true);
+                        fetchSingleData(student.id);
+                        setstudentId(student.id);
                       }}
                       className="bi bi-pencil-square"
                     ></i>
                     <button
+                      style={{
+                        marginRight: "-70px",
+                        marginLeft: "20px",
+                        backgroundColor: "green",
+                        color: "white",
+                      }}
                       onClick={() => {
-                        fetchSingleData(student.id);
+                        routToDetails(student.id);
                       }}
                     >
-                      det
+                      Details
                     </button>
                   </td>
                 </tr>
@@ -256,9 +289,21 @@ function Home() {
         {open && (
           <div className="formDiv2">
             <form>
-              <input placeholder="Name" onChange={handleNameUpdate} />
-              <input placeholder="Age" onChange={handleAgeUpdate} />
-              <input placeholder="Place" onChange={handlePlaceUpdate} />
+              <input
+                value={updatedStudentData.name}
+                placeholder="Name"
+                onChange={handleNameUpdate}
+              />
+              <input
+                value={updatedStudentData.age}
+                placeholder="Age"
+                onChange={handleAgeUpdate}
+              />
+              <input
+                value={updatedStudentData.place}
+                placeholder="Place"
+                onChange={handlePlaceUpdate}
+              />
               <i
                 style={{ color: "white", position: "relative", left: "10px" }}
                 className="bi bi-x-octagon"
@@ -267,8 +312,16 @@ function Home() {
                 }}
               ></i>
               <br></br>
-              <input placeholder="Mobile" onChange={handleMobileUpdate} />
-              <input placeholder="Email" onChange={handleEmailUpdate} />
+              <input
+                value={updatedStudentData.mobile}
+                placeholder="Mobile"
+                onChange={handleMobileUpdate}
+              />
+              <input
+                value={updatedStudentData.email}
+                placeholder="Email"
+                onChange={handleEmailUpdate}
+              />
               <button onClick={updateStudent}>Update</button>
             </form>
           </div>

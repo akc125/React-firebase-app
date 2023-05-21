@@ -70,6 +70,7 @@ function Header() {
           top: "40px",
           fontFamily:"serif",
           cursor:"pointer",
+          color:"red",
         }}
         onClick={() => {
           logout();
