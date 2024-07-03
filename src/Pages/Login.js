@@ -18,6 +18,8 @@ function Login() {
         email,
         password
       );
+      const userId=userCredential.user.uid
+      localStorage.setItem("userId",userId)
       const userToken = await userCredential.user.getIdToken();
       localStorage.setItem("userToken", userToken);
       navigate("home");
