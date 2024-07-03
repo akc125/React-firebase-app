@@ -43,7 +43,7 @@ function Login() {
           fontFamily: "serif",
         }}
       >
-        React Firebase
+       TT USTHAD MEMMORIAL
       </span>""
       <span
         style={{
@@ -55,7 +55,7 @@ function Login() {
           color: "red",
         }}
       >
-        Demo
+        DARAS
       </span>
       {register && (
         <form onSubmit={handleLogin}>
